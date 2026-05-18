@@ -1,5 +1,5 @@
 /******************************************************************************
- * @file    miscellaneous.h
+ * @file    misc.h
  * @brief   Header for miscellaneous defines and typedefinitions
  * @author  Mikhail ysph Subbotin, Phillip Blunck
  * @date    2026-05-14
@@ -8,27 +8,32 @@
  *
  ******************************************************************************/
 
-#ifndef MISCELLANEOUS_H
-#define MISCELLANEOUS_H
+#ifndef MISC_H
+#define MISC_H
 
 /* ============================================================================
  * INCLUDES
  * ========================================================================== */
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+# include <stdbool.h>
+#endif
 
 /* ============================================================================
  * DEFINES / MACROS
  * ========================================================================== */
-
-#define TRUE 1
-#define FALSE 0
 
 
 /* ============================================================================
  * TYPEDEFS / STRUCTS / ENUMS
  * ========================================================================== */
 
-typedef int bool;
+#ifndef __bool_true_false_are_defined
+typedef enum {
+    false = 0,
+    true = 1
+} bool;
+#endif
 
 
 /* ============================================================================
@@ -56,4 +61,4 @@ typedef int bool;
  * ========================================================================== */
 
 
-#endif /* MISCELLANEOUS_H */
+#endif /* MISC_H */

@@ -19,18 +19,18 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "miscellaneous.h"
+#include "misc.h"
 
 
 /* ============================================================================
  * DEFINES / MACROS
  * ========================================================================== */
 
-#define WIRED_OR_CABLE 			1
-#define WIRELESS_RECEIVER 		2
-#define CABLE_BUT_SECOND		2
+#define WIRED_OR_CABLE          1
+#define WIRELESS_RECEIVER       2
+#define CABLE_BUT_SECOND        2
 #define ID_PRODUCT_UNIDENTIFIED 0xc539
-#define ID_VENDOR 				0x046d
+#define ID_VENDOR               0x046d
 
 
 /* ============================================================================
@@ -42,7 +42,6 @@ typedef struct Item {
     const char* name;
     uint8_t interface;
     uint8_t mByte3;
-
     struct Item* next;
 } Item;
 
@@ -64,11 +63,11 @@ int pushItem(Item** head_ref, const int new_idProduct,
     const char* new_name, const uint8_t new_interface,
     const uint8_t new_byte3);
 bool searchItem(Item* head, const int search_idProduct);
-const int getInterface(Item* head, const int search_idProduct);
-const char* getName(Item* head, const int search_idProduct);
-const uint8_t getByte3(Item* head, const int search_idProduct);
-const int getSize(Item* head);
-const int getNthId(Item* head, int nth);
+int getInterface(Item* head, const int search_idProduct);
+char* getName(Item* head, const int search_idProduct);
+uint8_t getByte3(Item* head, const int search_idProduct);
+int getSize(Item* head);
+int getNthId(Item* head, int nth);
 
 
 /* ============================================================================

@@ -104,11 +104,11 @@ bool searchItem(Item* head, const int search_idProduct)
             return current->interface;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
 // FIXME: use generics
-const int getInterface(Item* head, const int search_idProduct)
+int getInterface(Item* head, const int search_idProduct)
 {
     Item* current = head;
     while (current != NULL) {
@@ -116,23 +116,23 @@ const int getInterface(Item* head, const int search_idProduct)
             return current->interface;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
 // FIXME: use generics
-const char* getName(Item* head, const int search_idProduct)
+char* getName(Item* head, const int search_idProduct)
 {
     Item* current = head;
     while (current != NULL) {
         if (current->idProduct == (uint16_t)search_idProduct)
-            return current->name;
+            return (char*)current->name;
         current = current->next;
     }
     return "UNDEFINED";
 }
 
 // FIXME: use generics
-const uint8_t getByte3(Item* head, const int search_idProduct)
+uint8_t getByte3(Item* head, const int search_idProduct)
 {
     Item* current = head;
     while (current != NULL) {
@@ -140,10 +140,10 @@ const uint8_t getByte3(Item* head, const int search_idProduct)
             return current->mByte3;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
-const int getSize(Item* head)
+int getSize(Item* head)
 {
     int length = 0;
     if (head == NULL) {
@@ -156,7 +156,7 @@ const int getSize(Item* head)
     return length;
 }
 
-const int getNthId(Item* head, int needed)
+int getNthId(Item* head, int needed)
 {
     int nth = 1;
     if (head == NULL) {
