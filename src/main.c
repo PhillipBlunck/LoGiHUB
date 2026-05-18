@@ -40,7 +40,7 @@
 #include <time.h>
 #include <libusb-1.0/libusb.h>
 
-#include "miscellaneous.h"
+#include "misc.h"
 #include "mouselist.h"
 
 /* ============================================================================

@@ -104,7 +104,7 @@ bool searchItem(Item* head, const int search_idProduct)
             return current->interface;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
 // FIXME: use generics
@@ -116,7 +116,7 @@ int getInterface(Item* head, const int search_idProduct)
             return current->interface;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
 // FIXME: use generics
@@ -140,7 +140,7 @@ uint8_t getByte3(Item* head, const int search_idProduct)
             return current->mByte3;
         current = current->next;
     }
-    return FALSE;
+    return false;
 }
 
 int getSize(Item* head)
