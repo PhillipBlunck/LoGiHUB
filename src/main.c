@@ -40,8 +40,8 @@
 #include <time.h>
 #include <libusb-1.0/libusb.h>
 
-#include "mouselist.h"
 #include "miscellaneous.h"
+#include "mouselist.h"
 
 /* ============================================================================
  * DEFINES / MACROS
@@ -79,12 +79,12 @@ int temp_id;
  * STATIC FUNCTION PROTOTYPES
  * ========================================================================== */
 
-void CloseDeviceAndExit(void);
-void DetachKernel(void);
-void AttachKernel(void);
-int openDevice(void);
-int getDevice(Item* head);
-int unsupportedDevice(Item* head);
+static void CloseDeviceAndExit(void);
+static void DetachKernel(void);
+static void AttachKernel(void);
+static int openDevice(void);
+static int getDevice(Item* head);
+static int unsupportedDevice(Item* head);
 
 
 /* ============================================================================
@@ -113,6 +113,8 @@ int main(void)
     head->next = NULL;
     Item* unsuported = (Item*)malloc(size_of_Item);
     unsuported->next = NULL;
+    pushItem(&head, 0xc094, "USB RECEIVER", WIRELESS_RECEIVER, 0x0e);
+    pushItem(&head, 0xc547, "PRO X Wireless", WIRED_OR_CABLE, 0x0e);
     pushItem(&head, 0xc092, "G102-G203 LIGHTSYNC", WIRED_OR_CABLE, 0x0e);
     pushItem(&head, 0xc084, "G203 Prodigy", WIRED_OR_CABLE, 0x0e);
     pushItem(&head, 0xc083, "G403 Prodigy", WIRED_OR_CABLE, 0x0e);
@@ -217,14 +219,14 @@ int main(void)
  * STATIC FUNCTION IMPLEMENTATIONS
  * ========================================================================== */
 
-void CloseDeviceAndExit(void)
+static void CloseDeviceAndExit(void)
 {
     if (devh)
         libusb_close(devh);
     libusb_exit(NULL);
 }
 
-void DetachKernel(void)
+static void DetachKernel(void)
 {
     if (libusb_kernel_driver_active(devh, wIndex)) {
         libusb_detach_kernel_driver(devh, wIndex);
@@ -241,7 +243,7 @@ void DetachKernel(void)
     }
 }
 
-void AttachKernel(void)
+static void AttachKernel(void)
 {
     libusb_release_interface(devh, wIndex);
 
@@ -250,7 +252,7 @@ void AttachKernel(void)
     }
 }
 
-int openDevice(void)
+static int openDevice(void)
 {
     const int available = getSize(available_head);
     int choice;
@@ -261,7 +263,7 @@ int openDevice(void)
     printf("Enter [0] to exit.\n");
 
     LOOP:
-        fgets(input_string, 20, stdin);
+        if(fgets(input_string, 20, stdin) == NULL) return -1;
         choice = strtol(input_string, NULL, 0);
         if ((choice < 0) || (choice > available)) {
             printf("Choose correct number or exit!\n");
@@ -344,7 +346,7 @@ int openDevice(void)
     return EXIT_SUCCESS;
 }
 
-int getDevice(Item* head)
+static int getDevice(Item* head)
 {
     libusb_device **list;
     struct libusb_device_descriptor desc;
@@ -384,7 +386,7 @@ int getDevice(Item* head)
  * @param head - the list of unsupported devices, which is **deleted** after the check
  * @return EXIT_SUCCESS if the device is supported, EXIT_FAILURE otherwise
 */
-int unsupportedDevice(Item* head)
+static int unsupportedDevice(Item* head)
 {
     libusb_device **list;
     struct libusb_device_descriptor desc;
